@@ -5,7 +5,6 @@ namespace App\Controller\admin;
 use App\Entity\Recipe;
 use App\Form\AdminRecipeType;
 use App\Repository\RecipeRepository;
-use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -71,7 +70,7 @@ class RecipeController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Recette créée avec success');
 
-            return $this->redirectToRoute('admin_create_recipe');
+            return $this->redirectToRoute('recipes');
         }
 
 
@@ -122,6 +121,47 @@ class RecipeController extends AbstractController
         $this->addFlash('success','Recette supprimée avec succès');
         return $this->redirectToRoute('recipes');
 
+    }
+
+    #[Route('/admin/recipes/{id}/update', name: 'admin_update_recipe', requirements: ['id'=>'\d+'], methods: ['GET', 'POST'] )]
+    public function updateRecipe(int $id, RecipeRepository $recipeRepository, EntityManagerInterface $entityManager,
+                                 Request $request, ParameterBagInterface $parameterBag): Response{
+
+        $recipe = $recipeRepository->find($id);
+
+        $adminRecipeForm = $this->createForm(AdminRecipeType::class, $recipe);
+        $adminRecipeForm->handleRequest($request);
+        if($adminRecipeForm->isSubmitted()){
+
+            $recipeImage = $adminRecipeForm->get ('image')->getData();
+
+
+            if($recipeImage){
+
+                $imageNewName = md5(uniqid()).'.'.$recipeImage->guessExtension();
+
+                $rootDir = $parameterBag->get('kernel.project_dir');
+                $imagesDir = $rootDir.'/public//assets/images';
+                $recipeImage->move($imagesDir, $imageNewName);
+
+                $recipe->setImage($imageNewName);
+            }
+
+            $entityManager->persist($recipe);
+            $entityManager->flush();
+            $this->addFlash('success', 'Recette modifiée avec success');
+
+            return $this->redirectToRoute('recipes');
+        }
+
+
+
+        $adminRecipeFormView = $adminRecipeForm->createView();
+
+        return $this->render('admin/recipe/update_recipe.html.twig', [
+            'adminRecipeFormView' => $adminRecipeFormView,
+            'recipe' => $recipe
+        ]);
 
     }
 }
