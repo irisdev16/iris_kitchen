@@ -12,6 +12,7 @@
             <th style="border: 1px solid black; padding: 8px;">Ingrédients</th>
             <th style="border: 1px solid black; padding: 8px;">Date de création</th>
             <th>Image</th>
+            <th>Actions</th>
 
         </tr>
 
@@ -22,6 +23,8 @@
             <td style="border: 1px solid black; padding: 8px;">{{ recipe.ingredients }}</td>
             <td style="border: 1px solid black; padding: 8px;">{{ recipe.createdAt.format('d/m/Y H:i:s') }}</td>
             <td> <img src="{{ asset ('assets/images/' ~ recipe.image) }}"></td>
+            <td><p><a href="{{ path('admin_delete_recipe', {'id':recipe.id}) }}" class="btn btn-primary mt-3">Supprimer</a></p></td>
+            <td><p><a href="{{ path('admin_update_recipe', {'id':recipe.id}) }}" class="btn btn-primary mt-3">Modifier</a></p></td>
 
         </tr>
     {% endfor %}
