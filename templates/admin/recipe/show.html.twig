@@ -11,6 +11,7 @@
         <article>
             <h2> {{ recipe.title }}</h2>
             <img src="{{ asset ('assets/images/' ~ recipe.image) }}">
+            <p><a href="{{ path('admin_delete_recipe', {'id':recipe.id}) }}" class="btn btn-primary mt-3">Supprimer</a></p>
         </article>
     </div>
 
