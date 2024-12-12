@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Public;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class LoginController extends AbstractController
 
 
     //j'ai créé mon formulaire twig dans mon dossier public pour y avoir accès sur les pages public du site
-    //j'ai aussi modifié mon dossier de config security.yaml (je ne sais pas rééllemnt pourquoi...)
+    //j'ai aussi modifié mon dossier de config security.yaml (je ne sais pas rééllement pourquoi...)
     #[Route('/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response{
 
