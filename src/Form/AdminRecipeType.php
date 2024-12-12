@@ -18,9 +18,7 @@ class AdminRecipeType extends AbstractType
         $builder
             ->add('title')
             ->add('image', FileType::class, [
-                //ce n'est pas symfony qui utilise le mapping vers les champs de formulaire d'ou mapped=false, c'est pour avoir la main justement sur le mapping
-                'mapped' => false,
-
+                'mapped' => false
             ])
             ->add('ingredients')
             ->add('instructions')
@@ -28,6 +26,7 @@ class AdminRecipeType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title',
             ])
+            ->add('isPublished')
             ->add('valider', SubmitType::class)
         ;
     }
