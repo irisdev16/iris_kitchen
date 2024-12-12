@@ -1,0 +1,33 @@
+{% extends "public/base.html.twig" %}
+
+
+{% block title %}Login | Les recettes d'Iris{% endblock %}
+
+{% block body %}
+
+    <main>
+
+        <h1>Les recettes d'Iris</h1>
+
+
+        {# je créé un fomulaire d'authentification avec un input identifiant et un input mdp + bouton submit
+         je fais bien attention au nom de mes inputs (_username et _password)
+        #}
+
+
+        <form action="{{ path('login') }}" method="post">
+
+            <label>Identifiant
+                <input type="email" name="_username" value="{{ last_username }}">
+            </label>
+
+            <label> Mot de passe
+                <input type="password" name="_password">
+            </label>
+
+            <input type="submit" value="Se connecter">
+
+        </form>
+    </main>
+
+{% endblock %}

@@ -23,14 +23,16 @@ class RecipeRepository extends ServiceEntityRepository
 
         //j'utilise la méthode "createQueryBuilder" pour faire un requête SQL ici en PHP sur mon IDE (plus simple que
         // de faire une recherche SQL).
-        //je lui passe en paramètre mes recettes car c'est sur cela que va s'effectuer les recherches
+        //je lui passe en paramètre un alias pour cette requête
         $queryBuilder = $this->createQueryBuilder('recipe');
 
-        //je fais ici ma requete SQL
+        //je fais ici ma requete SQL avec en paramètre recipe que j'ai mis en alias juste avant
         //dans toutes les recette de ma BDD, je veus que tous les titres de recettes tapés dans ma barre de
         // recherche permette a l'utilisateur d'avoir les recettes en question
         //where = ou les titres de mes recettes
-        // setParameter = établie des paramètres comme les % pour la recherche
+        // setParameter = remplace un paramètre par une vraie valeur, je remplace :search par la valeur entréé par
+        // l'utilisateur dans $search. 'search' ici permet de nettoyer les deux points juste avant et empécher
+        // l'utilisateur d'entrer une commande SQL dans la barre de recherche
         //getQuery renvoie ma requete SQL
         //je retourne ensuite le résultat de cette requete SQL
         $query = $queryBuilder->select('recipe')

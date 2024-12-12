@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -14,20 +15,35 @@ class Recipe
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage:'Le titre ne doit pas contenir moins de 5 caractères',
+        maxMessage: 'Le titre ne doit pas contenir plus de 10 caractères',
+
+    )]
+
+    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[ORM\Column(length: 255)]
     private ?string $ingredients = null;
 
+    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $instructions = null;
 
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?Category $category = null;
