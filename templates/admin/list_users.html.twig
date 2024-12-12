@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    <h1>Liste de toutes les recettes</h1>
+
+    <table>
+        <tr>
+            <th style="border: 1px solid black; padding: 8px;">ID</th>
+            <th style="border: 1px solid black; padding: 8px;">Email</th>
+            <th style="border: 1px solid black; padding: 8px;">Role</th>
+
+        </tr>
+
+        {% for admin in admins %}
+            <tr>
+                <td style="border: 1px solid black; padding: 8px;">{{ admin.id }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ admin.email }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ admin.roles|join(' ,')}}</td>
+
+
+        {% endfor %}
+    </table>
+
+{% endblock body %}

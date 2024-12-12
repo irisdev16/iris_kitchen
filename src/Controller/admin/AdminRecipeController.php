@@ -68,7 +68,7 @@ class AdminRecipeController extends AbstractController
         $recipes = $recipeRepository->findAll();
 
         return $this->render('admin/recipe/list_recipes.html.twig', [
-            'recipe' => $recipes
+            'recipes' => $recipes
         ]);
 
     }
@@ -119,7 +119,7 @@ class AdminRecipeController extends AbstractController
 
         return $this->render('admin/recipe/update_recipe.html.twig', [
             'adminRecipeFormView' => $adminRecipeFormView,
-            'recipe' => $recipe
+            'recipes' => $recipe
         ]);
     }
 
