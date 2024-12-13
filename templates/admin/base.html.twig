@@ -9,6 +9,8 @@
 <header>
     <h1>Bienvenue sur l'admin</h1>
 
+    <h2 style="color: deeppink; text-align: end" {{ path('admin_list_users') }}> L'utilisateur connecté est {{ authenticatedUser.email  }}</h2>
+
     <nav>
         <ul>
             <li><a href="{{ path('admin_create_recipe') }}">Créer une recettes</a></li>
@@ -18,7 +20,7 @@
             <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
         </ul>
 
-        <h2> L'utilisateur connecté est {{ authenticatedUser.email  }}</h2>
+
     </nav>
 </header>
 {% for message in app.flashes('success') %}

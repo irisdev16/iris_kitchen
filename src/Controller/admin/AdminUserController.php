@@ -40,6 +40,7 @@ class AdminUserController extends AbstractController
     $entityManager, UserPasswordHasherInterface $userPasswordHasher) {
 
         //dd('hello');
+        $authenticatedUser = $this->getUser();
 
         $user = new User();
 
@@ -69,6 +70,7 @@ class AdminUserController extends AbstractController
 
         return $this->render('admin/create_user.html.twig', [
             'userFormView' => $userFormView,
+            'authenticatedUser' => $authenticatedUser
         ]);
     }
 
@@ -89,7 +91,9 @@ class AdminUserController extends AbstractController
 
         $this->addFlash('success', 'Utilisateur bien supprimé');
 
-        return $this->redirectToRoute('admin_list_users'[]);
+        return $this->redirectToRoute('admin_list_users',[
+            'authenticatedUser' => $authenticatedUser,
+            ]);
 
     }
 
@@ -97,11 +101,15 @@ class AdminUserController extends AbstractController
     public function updateUser(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager,
                                UserPasswordHasherInterface $userPasswordHasher, Request $request){
 
+        $authenticatedUser = $this->getUser();
+
         $user = $userRepository->find($id);
 
         //dd($user);
 
-        $adminUserForm = $this->createForm(UsersType::class, $user);
+        $adminUserForm = $this->createForm(UsersType::class, $user, [
+            'password_required'=>false
+        ]);
 
         $adminUserForm->handleRequest($request);
 
@@ -114,7 +122,9 @@ class AdminUserController extends AbstractController
                 $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
 
                 $user->setPassword($hashedPassword);
-
+            }else {
+                // Si aucun mot de passe n'est saisi, conserver l'ancien
+                $user->setPassword($user->getPassword());
             }
 
             $entityManager->persist($user);
@@ -131,6 +141,7 @@ class AdminUserController extends AbstractController
         return $this->render('admin/update_user.html.twig', [
             'user' => $user,
             'adminUserFormView' => $adminUserFormView,
+            'authenticatedUser' => $authenticatedUser
         ]);
 
     }
