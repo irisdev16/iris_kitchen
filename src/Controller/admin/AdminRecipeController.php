@@ -27,6 +27,7 @@ class AdminRecipeController extends AbstractController
             // je récupère le fichier envoyé dans le champs image du formulaire
             $recipeImage = $adminRecipeForm->get('image')->getData();
 
+
             // s'il y a bien une image envoyée
             if ($recipeImage) {
 

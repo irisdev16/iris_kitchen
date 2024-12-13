@@ -6,21 +6,25 @@
 
     <table>
         <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Date de création</th>
-            <th>Image</th>
-            <th>Actions</th>
+            <th style="border: 1px solid black; padding: 8px;">Id</th>
+            <th style="border: 1px solid black; padding: 8px;">Nom</th>
+            <th style="border: 1px solid black; padding: 8px;">Date de création</th>
+            <th style="border: 1px solid black; padding: 8px;">Image</th>
+            <th style="border: 1px solid black; padding: 8px;">Actions</th>
         </tr>
 
         {% for recipe in recipes %}
             <tr>
-                <td>{{ recipe.id }}</td>
-                <td>{{ recipe.title }}</td>
-                <td>{{ recipe.createdAt | date('d-m-Y')}}</td>
-                <td><img width="100px" src="{{ asset('assets/uploads/' ~ recipe.image) }}" /></td>
-                <td><a href="{{ path('admin_delete_recipe', {'id': recipe.id}) }}">Supprimer</a>
-                    <a href="{{ path('admin_update_recipe', {'id': recipe.id}) }}">Modifier</a></td>
+                <td style="border: 1px solid black; padding: 8px;">{{ recipe.id }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ recipe.title }}</td>
+                <td style="border: 1px solid black; padding: 8px;">{{ recipe.createdAt | date('d-m-Y')}}</td>
+                <td style="border: 1px solid black; padding: 8px;">
+                    <img width="100px" src="{{ asset('assets/uploads/' ~ recipe.image) }}" />
+                </td>
+                <td style="border: 1px solid black; padding: 8px;">
+                    <a href="{{ path('admin_delete_recipe', {'id': recipe.id}) }}">Supprimer</a>
+                    <a href="{{ path('admin_update_recipe', {'id': recipe.id}) }}">Modifier</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

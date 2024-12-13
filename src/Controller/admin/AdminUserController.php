@@ -25,12 +25,11 @@ class AdminUserController extends AbstractController
     #[Route('/admin/users/list', name: 'admin_list_users', methods: ['GET'])]
     public function listAdmins(UserRepository $userRepository){
 
-        $authenticatedUser = $this->getUser();
+
         $admins = $userRepository->findAll();
 
         return $this->render('admin/list_users.html.twig', [
             'admins' => $admins,
-            'authenticatedUser' => $authenticatedUser
         ]);
     }
 
@@ -40,7 +39,7 @@ class AdminUserController extends AbstractController
     $entityManager, UserPasswordHasherInterface $userPasswordHasher) {
 
         //dd('hello');
-        $authenticatedUser = $this->getUser();
+
 
         $user = new User();
 
@@ -70,7 +69,7 @@ class AdminUserController extends AbstractController
 
         return $this->render('admin/create_user.html.twig', [
             'userFormView' => $userFormView,
-            'authenticatedUser' => $authenticatedUser
+
         ]);
     }
 
@@ -101,30 +100,23 @@ class AdminUserController extends AbstractController
     public function updateUser(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager,
                                UserPasswordHasherInterface $userPasswordHasher, Request $request){
 
-        $authenticatedUser = $this->getUser();
 
         $user = $userRepository->find($id);
 
         //dd($user);
 
-        $adminUserForm = $this->createForm(UsersType::class, $user, [
-            'password_required'=>false
-        ]);
+        $adminUserForm = $this->createForm(UsersType::class, $user);
 
         $adminUserForm->handleRequest($request);
 
         if ($adminUserForm->isSubmitted() && $adminUserForm->isValid()) {
 
-            $password = $adminUserForm->get('password')->getData();
+            $clearNewpassword = $adminUserForm->get('password')->getData();
 
-            if($password){
-
-                $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
+            if($clearNewpassword){
+                $hashedPassword = $userPasswordHasher->hashPassword($user, $clearNewpassword);
 
                 $user->setPassword($hashedPassword);
-            }else {
-                // Si aucun mot de passe n'est saisi, conserver l'ancien
-                $user->setPassword($user->getPassword());
             }
 
             $entityManager->persist($user);
@@ -141,7 +133,6 @@ class AdminUserController extends AbstractController
         return $this->render('admin/update_user.html.twig', [
             'user' => $user,
             'adminUserFormView' => $adminUserFormView,
-            'authenticatedUser' => $authenticatedUser
         ]);
 
     }

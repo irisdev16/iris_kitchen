@@ -30,6 +30,7 @@ class Category
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -90,4 +91,6 @@ class Category
 
         return $this;
     }
+
+
 }

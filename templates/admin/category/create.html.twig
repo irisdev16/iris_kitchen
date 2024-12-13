@@ -1,0 +1,17 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(adminCategoryFormView) }}
+
+    <div>
+        {{ form_label(adminCategoryFormView.title) }}
+        {{ form_widget(adminCategoryFormView.title) }}
+        {{ form_errors(adminCategoryFormView.title) }}
+    </div>
+
+
+{{ form_end(adminCategoryFormView) }}
+
+{% endblock body %}

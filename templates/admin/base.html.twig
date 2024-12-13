@@ -9,15 +9,18 @@
 <header>
     <h1>Bienvenue sur l'admin</h1>
 
-    <h2 style="color: deeppink; text-align: end" {{ path('admin_list_users') }}> L'utilisateur connecté est {{ authenticatedUser.email  }}</h2>
+    <h2><a style="color: deeppink; text-decoration: none" href="{{ path('admin_update_user', {id: app.user.id}) }}"> L'utilisateur connecté est {{ app.user.email  }}</a></h2>
 
     <nav>
         <ul>
-            <li><a href="{{ path('admin_create_recipe') }}">Créer une recettes</a></li>
+            <li><a href="{{ path('admin_create_recipe') }}">Créer une recette</a></li>
             <li><a href="{{ path('admin_list_recipes') }}">Gérer des recettes</a></li>
             <li><a href="{{ path('admin_create_user') }}">Créer des utilisateurs</a></li>
             <li><a href="{{ path('admin_list_users') }}">Gérer des utilisateurs</a></li>
+            <li><a href="{{ path('admin_create_category') }}">Créer une catégorie</a></li>
+            <li><a href="{{ path('admin_list_category') }}">Gérer des catégories</a></li>
             <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
+
         </ul>
 
 

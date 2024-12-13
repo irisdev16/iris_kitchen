@@ -26,7 +26,7 @@ class UsersType extends AbstractType
                 'multiple' => true, // Permet de sélectionner plusieurs rôles
             ])
             ->add('password', PasswordType::class, [
-                'required' =>$options['password_required'],
+                'required' =>false,
                 'mapped' => false,])
             ->add('Save', SubmitType::class, [])
         ;
@@ -36,7 +36,6 @@ class UsersType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'password_required' => true,
         ]);
     }
 }

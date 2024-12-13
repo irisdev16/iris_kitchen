@@ -18,7 +18,7 @@ class Recipe
     #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[Assert\Length(
         min: 5,
-        max: 10,
+        max: 255,
         minMessage:'Le titre ne doit pas contenir moins de 5 caractères',
         maxMessage: 'Le titre ne doit pas contenir plus de 10 caractères',
 
@@ -28,7 +28,6 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[Assert\NotBlank (message: 'Le champs ne peut pas être vide')]
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 

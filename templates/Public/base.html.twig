@@ -10,11 +10,16 @@
 <header>
     <h1 style="background-color: antiquewhite">Les recettes d'Iris</h1>
 
-    <ul>
-        <li style="list-style: none">
-            <a style="text-decoration: none; background-color: burlywood; color: brown" href="{{ path('list_recipes') }}">Les recettes du site</a>
-        </li>
-    </ul>
+    <nav>
+        <ul>
+            <li>
+                <a href="{{ path('list_recipes') }}">Toutes les recettes du site ici</a>
+            </li>
+
+
+        </ul>
+    </nav>
+
 
     <form method="get" action="{{ path('search_recipes') }}">
 

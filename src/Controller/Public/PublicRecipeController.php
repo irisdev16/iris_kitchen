@@ -2,6 +2,7 @@
 
 namespace App\Controller\Public;
 
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,7 @@ class PublicRecipeController extends AbstractController
     #[Route('/recipes/{id}', 'show_recipe',  methods: ['GET'], requirements: ['id' => '\d+'])]
 
     public function showRecipe(int $id, RecipeRepository $recipeRepository) {
+
 
         $recipe = $recipeRepository->find($id);
 
@@ -55,6 +57,20 @@ class PublicRecipeController extends AbstractController
         return $this->render('public/recipe/search_recipe.html.twig', [
             'recipes' => $recipe,
             'search' => $search
+        ]);
+    }
+
+    #[Route('recipes/category/{id}', 'recipe_by_category', methods: ['GET'])]
+    public function recipeByCategory(int $id, CategoryRepository $categoryRepository,RecipeRepository
+$recipeRepository){
+
+        $category = $categoryRepository->find($id);
+
+        $recipes = $recipeRepository->findBy(['category' => $category]);
+
+        return $this->render('public/recipe/recipe_by_category.html.twig', [
+            'recipes' => $recipes,
+            'category' => $category
         ]);
 
     }
