@@ -60,19 +60,6 @@ class PublicRecipeController extends AbstractController
         ]);
     }
 
-    #[Route('recipes/category/{id}', 'recipe_by_category', methods: ['GET'])]
-    public function recipeByCategory(int $id, CategoryRepository $categoryRepository,RecipeRepository
-$recipeRepository){
 
-        $category = $categoryRepository->find($id);
-
-        $recipes = $recipeRepository->findBy(['category' => $category]);
-
-        return $this->render('public/recipe/recipe_by_category.html.twig', [
-            'recipes' => $recipes,
-            'category' => $category
-        ]);
-
-    }
 
 }

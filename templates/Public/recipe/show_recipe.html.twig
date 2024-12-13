@@ -14,10 +14,8 @@
 
             <p>{{ recipe.instructions }}</p>
 
-            {#Pour toutes les recettes qui ont la catégorie dessert, je veux afficher les recettes #}
 
-
-            <p><a href="{{ path('recipe_by_category', {id:recipe.category.id}) }}">Catégorie : {{ recipe.category.title }}</a></p>
+            <p><a href="{{ path('show_category', {id:recipe.category.id}) }}">Catégorie : {{ recipe.category.title }}</a></p>
         </article>
 
     </main>

@@ -1,0 +1,24 @@
+{% extends "public/base.html.twig" %}
+
+{% block title %}| Les recettes d'Iris{% endblock %}
+
+{% block body %}
+    <main>
+    <h1>Catégorie : {{ category.title }}</h1>
+
+    {% if recipes is empty %}
+        <p>Aucune recette trouvée pour cette catégorie.</p>
+    {% else %}
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <a href="{{ path('show_recipe', { id: recipe.id }) }}">
+                        <img src="{{ asset('assets/uploads/' ~ recipe.image) }}" alt="{{ recipe.title }}" width="100">
+                        {{ recipe.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock body %}
