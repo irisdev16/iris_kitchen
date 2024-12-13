@@ -18,7 +18,10 @@
                 <td style="border: 1px solid black; padding: 8px;">{{ admin.id }}</td>
                 <td style="border: 1px solid black; padding: 8px;">{{ admin.email }}</td>
                 <td style="border: 1px solid black; padding: 8px;">{{ admin.roles|join(', ')}}</td>
-                <td><a href="{{ path('admin_delete_user', {'id': admin.id}) }}">Supprimer</a></td>
+                <td style="border: 1px solid black; padding: 8px;">
+                    <a style="text-decoration: none; color: red" href="{{ path('admin_delete_user', {'id': admin.id}) }}">Supprimer</a>
+                    <a style="text-decoration: none; color: red" href="{{ path('admin_update_user', {'id': admin.id}) }}">Modifier</a>
+                </td>
         {% endfor %}
     </table>
 
