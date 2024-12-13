@@ -3,26 +3,25 @@
 
 {% block body %}
 
-    {{ form_start(userForm, { 'attr': { 'class': 'user-form' } }) }}
+    {{ form_start(userFormView, { 'attr': { 'class': 'user-form' } }) }}
     <div>
-        {{ form_label(userForm.email, 'Email') }}
-        {{ form_widget(userForm.email, { 'attr': { 'class': 'form-input' } }) }}
-        {{ form_errors(userForm.email) }}
+        {{ form_label(userFormView.email, 'Email') }}
+        {{ form_widget(userFormView.email, { 'attr': { 'class': 'form-input' } }) }}
+        {{ form_errors(userFormView.email) }}
     </div>
 
     <div>
-        {{ form_label(userForm.roles, 'Rôles') }}
-        {{ form_widget(userForm.roles, { 'attr': { 'class': 'form-roles' } }) }}
-        {{ form_errors(userForm.roles) }}
+        {{ form_label(userFormView.roles, 'Rôles') }}
+        {{ form_widget(userFormView.roles, { 'attr': { 'class': 'form-roles' } }) }}
+        {{ form_errors(userFormView.roles) }}
     </div>
 
     <div>
-        {{ form_label(userForm.password, 'Mot de passe') }}
-        {{ form_widget(userForm.password, { 'attr': { 'class': 'form-password' } }) }}
-        {{ form_errors(userForm.password) }}
+        {{ form_label(userFormView.password, 'Mot de passe') }}
+        {{ form_widget(userFormView.password, { 'attr': { 'class': 'form-password' } }) }}
+        {{ form_errors(userFormView.password) }}
     </div>
 
-    <button type="submit" class="btn btn-primary">Créer</button>
-    {{ form_end(userForm) }}
+    {{ form_end(userFormView) }}
 
 {% endblock body %}

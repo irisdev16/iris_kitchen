@@ -3,13 +3,12 @@
 namespace App\Controller\admin;
 
 use App\Entity\User;
-use App\Form\AdminUsersType;
+use App\Form\UsersType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminUserController extends AbstractController
@@ -42,7 +41,7 @@ class AdminUserController extends AbstractController
 
         $user = new User();
 
-        $userForm = $this->createForm(AdminUsersType::class, $user);
+        $userForm = $this->createForm(UsersType::class, $user);
 
         //dd($userForm);
 
@@ -51,23 +50,37 @@ class AdminUserController extends AbstractController
         if ($userForm->isSubmitted() && $userForm->isValid()) {
 
             $password = $userForm->get('password')->getData();
+
             $hashedPassword = $userPasswordHasher->hashPassword($user, $password);
+
             $user->setPassword($hashedPassword);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash('success', 'User créé !!');
+
+            //return $this->redirectToRoute('admin_create_user');
         }
 
         $userFormView = $userForm->createView();
 
         return $this->render('admin/create_user.html.twig', [
-            'userForm' => $userForm,
+            'userFormView' => $userFormView,
         ]);
+    }
 
+    #[Route('admin/users/{id}/delete', name: 'admin_delete_user', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function deleteUser(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager){
 
+        $user = $userRepository->find($id);
 
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Utilisateur bien supprimé');
+
+        return $this->redirectToRoute('admin_list_users');
 
     }
 }
