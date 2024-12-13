@@ -1,0 +1,28 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(userForm, { 'attr': { 'class': 'user-form' } }) }}
+    <div>
+        {{ form_label(userForm.email, 'Email') }}
+        {{ form_widget(userForm.email, { 'attr': { 'class': 'form-input' } }) }}
+        {{ form_errors(userForm.email) }}
+    </div>
+
+    <div>
+        {{ form_label(userForm.roles, 'Rôles') }}
+        {{ form_widget(userForm.roles, { 'attr': { 'class': 'form-roles' } }) }}
+        {{ form_errors(userForm.roles) }}
+    </div>
+
+    <div>
+        {{ form_label(userForm.password, 'Mot de passe') }}
+        {{ form_widget(userForm.password, { 'attr': { 'class': 'form-password' } }) }}
+        {{ form_errors(userForm.password) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Créer</button>
+    {{ form_end(userForm) }}
+
+{% endblock body %}

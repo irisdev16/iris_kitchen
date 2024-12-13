@@ -16,9 +16,7 @@
             <tr>
                 <td style="border: 1px solid black; padding: 8px;">{{ admin.id }}</td>
                 <td style="border: 1px solid black; padding: 8px;">{{ admin.email }}</td>
-                <td style="border: 1px solid black; padding: 8px;">{{ admin.roles|join(' ,')}}</td>
-
-
+                <td style="border: 1px solid black; padding: 8px;">{{ admin.roles|join(', ')}}</td>
         {% endfor %}
     </table>
 
