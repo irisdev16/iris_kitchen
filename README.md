@@ -1,6 +1,6 @@
-##Déploiement
+## Déploiement
 
-###Serveur
+### Serveur
 - Acheter un serveur (dédié, VPS, mutualisé...) sur une plateforme comme OVH.
 - Se connecter en SSH pour accéder au serveur distant (Linux) et exécuter des lignes de commandes dans le terminal du serveur.
 - Installer PHP, Apache, Composer, MySQL, etc en ligne de commandes et configurer orrectement le serveur (ce que fait MAMP en local).
@@ -14,7 +14,7 @@
 - Re-créez le schéma de base de données avec "php bin/console:doctrine:migrations:migrate".
 - Videz les caches avec "php bon/console cache:clear --env=prod --no-debug".
 
-###Nom de domaine
+### Nom de domaine
 - S'assurer que Apache est configuré pour pointer directement dans le dossier public de Symfony
 - Acheter un nom de domaine avec un certificat SSL (pour avoir un HTTP plus sécurisé qui s'appelle : HTTPS)
 - Relier le nom de domaine à l'adresse IP du serveur
