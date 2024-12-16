@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCategoryController extends AbstractController
@@ -28,7 +29,9 @@ class AdminCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            $this->addFlash('sucess', 'Catégorie créée avec succès');
+            $this->addFlash('success', 'Catégorie créée avec succès');
+
+            return $this->redirectToRoute('admin_list_categories');
         }
 
         $adminCategoryFormView = $adminCategoryForm->createView();
@@ -38,7 +41,7 @@ class AdminCategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/categories/list', 'admin_list_category', methods: ['GET'])]
+    #[Route('/admin/categories/list', 'admin_list_categories', methods: ['GET'])]
     public function listCategories(CategoryRepository $categoryRepository){
 
         $categories = $categoryRepository->findAll();
@@ -54,12 +57,16 @@ class AdminCategoryController extends AbstractController
 
         $category = $categoryRepository->find($id);
 
+        if(!$category){
+            return new Response('Pas de catégorie trouvée', 404);
+        }
+
         $entityManager->remove($category);
         $entityManager->flush();
 
         $this->addFlash('success', 'La catégorie a bien été supprimée');
 
-        return $this->redirectToRoute('admin_list_category');
+        return $this->redirectToRoute('admin_list_categories');
 
     }
 
@@ -79,7 +86,7 @@ class AdminCategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            $this->addFlash('sucess', 'Catégorie modifiée');
+            $this->addFlash('success', 'Catégorie modifiée');
 
             return $this->redirectToRoute('admin_list_category');
         }
